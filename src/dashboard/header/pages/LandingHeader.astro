@@ -10,9 +10,9 @@ import Logo from "../components/Logo.astro";
     <Logo />
   </div>
 
-  <nav>
+  <nav class="hidden xl:block sm:hidden">
     <ul
-      class="flex text-sm [&>li>a]:transition-colors [&>li>a]:duration-500 [&>li>a]:inline-block [&>li>a]:px-4 [&>li>a]:py-4 [&>li>a]:font-gothic [&>li>a]:font-semibold [&>li>a]:text-current"
+      class="flex text-sm [&>li>a]:transition-colors [&>li>a]:duration-500 [&>li>a]:text-current [&>li>a]:font-medium [&>li>a]:inline-block [&>li>a]:px-4 [&>li>a]:py-2"
     >
       <li><a href="#">Vehiculos</a></li>
       <li><a href="#">Energia</a></li>
@@ -24,7 +24,7 @@ import Logo from "../components/Logo.astro";
 
   <nav class="flex flex-grow justify-end basis-0">
     <ul
-      class="flex text-sm [&>li>a]:inline-block [&>li>a]:px-4 [&>li>a]:py-4 [&>li>a]:font-gothic [&>li>a]:font-semibold [&>li>a]:text-white"
+      class="flex text-sm [&>li>a]:transition-colors [&>li>a]:duration-500 [&>li>a]:text-current [&>li>a]:font-medium [&>li>a]:inline-block [&>li>a]:px-4 [&>li>a]:py-2"
     >
       <li><a href="#">Soporte</a></li>
       <li><a href="#">Lenguaje</a></li>
@@ -34,17 +34,43 @@ import Logo from "../components/Logo.astro";
 
   <div
     id="menu-backdrop"
-    class="absolute bg-black/5 backdrop-blur-lg rounded left-[var(--left)] top-[var(--top)] w-[var(--width)] h-[var(--height)] transition-all duration-500 ease-in-out opacity-0 -z-10"
+    class={`
+      absolute bg-black/5 backdrop-blur-lg rounded
+      translate-x-[var(--left)] translate-y-[var(--top)]
+      left-0 top-0
+      w-[var(--width)] h-[var(--height)]
+      transition-all duration-500
+      ease-in-out opacity-0 -z-10
+    `}
   >
   </div>
 </header>
+
+<script>
+  const menuBtn = document.getElementById("menu-btn");
+  const modalMenu = document.querySelector("#modal-menu");
+  const menuItems = modalMenu.querySelectorAll("li>a ");
+  const closeBtn = document.querySelector("#close-btn");
+
+  function toggleDropdownMenu() {
+    modalMenu.classList.toggle("hidden");
+  }
+
+  menuBtn.addEventListener("click", toggleDropdownMenu);
+
+  closeBtn.addEventListener("click", toggleDropdownMenu);
+
+  menuItems.forEach((Item) => {
+    Item.addEventListener("click", toggleDropdownMenu);
+  });
+</script>
 
 <script>
   const listItem = document.querySelectorAll("#landing-header li");
   const menuBackDrop = document.querySelector("#menu-backdrop") as HTMLElement;
 
   listItem.forEach((item) => {
-    item.addEventListener("mouseenter", ({ target }) => {
+    item.addEventListener("mouseenter", () => {
       const { left, top, width, height } = item.getBoundingClientRect();
 
       menuBackDrop.style.setProperty("--left", `${left}px`);
@@ -68,8 +94,8 @@ import Logo from "../components/Logo.astro";
 
   const observerOptions = {
     root: null,
-    rootMargin: "0px",
-    threshold: 0.9,
+    rootMargin: "0px", // en cuanto se vea el elemento
+    threshold: 0.9, // porcentaje de visibilidad
   };
 
   const observer = new IntersectionObserver((entries) => {
@@ -81,9 +107,9 @@ import Logo from "../components/Logo.astro";
 
         $header.style.color = color;
       }
-    }, observerOptions);
-  });
+    });
+  }, observerOptions);
 
-  const $sections = document.querySelectorAll("landing-section");
+  const $sections = document.querySelectorAll(".landing-section");
   $sections.forEach((section) => observer.observe(section));
 </script>
