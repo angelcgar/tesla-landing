@@ -3,9 +3,10 @@ interface Props {
   color: string;
   title: string;
   subTitle: string;
+  priceModel?: string;
 }
 
-const { color, title, subTitle } = Astro.props;
+const { color, title, subTitle, priceModel } = Astro.props;
 const textColor = `text-${color}`;
 ---
 
@@ -18,6 +19,9 @@ const textColor = `text-${color}`;
       <h2 class=`${textColor} pt-24 text-[40px] font-medium`>
         {title}
       </h2>
+      <p class=`${textColor} text-2xl font-medium`>
+        {priceModel}
+      </p>
       <p class=`${textColor} text-sm`>
         {subTitle}
       </p>
