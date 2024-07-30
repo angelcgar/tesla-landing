@@ -1,18 +1,27 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import LandingHeader from "../shared/header/pages/LandingHeader.astro";
-import LandingHero from "../shared/header/pages/LandingHero.astro";
+import LandingHeader from "../dashboard/header/pages/LandingHeader.astro";
+import LandingHero from "../dashboard/header/pages/LandingHero.astro";
+import ChargeSection from "../dashboard/header/pages/ChargeSection.astro";
 ---
 
 <Layout title="Tesla. El coche de tus sueños y de elon">
   <LandingHeader />
 
-  <main class="relative w-full h-screen overflow-auto">
-    <LandingHero />
-    <LandingHero />
-    <LandingHero />
-    <LandingHero />
-    <LandingHero />
-    <LandingHero />
+  <main
+    class="snap-y snap-mandatory relative w-full h-screen overflow-auto scroll-smooth"
+  >
+    <div class="snap-center">
+      <LandingHero />
+    </div>
+    <div class="snap-center">
+      <ChargeSection />
+    </div>
+    <div class="snap-center">
+      <LandingHero />
+    </div>
+    <div class="snap-center">
+      <ChargeSection />
+    </div>
   </main>
 </Layout>
